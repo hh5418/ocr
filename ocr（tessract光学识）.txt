@@ -1,0 +1,66 @@
+
+
+下载网址：https://digi.bib.uni-mannheim.de/tesseract/
+
+光学字符识别(简称OCR)
+		Tesseract的封装类pytesseract
+		如果直接把验证码的原始图像传给pytesseract，结果一般都会不行
+			设计初衷是为了获取更加典型的文本，比如背景统一的书页
+			
+			验证码的文本一般都是黑色的，背景则会更加明亮
+			所以我们可以通过检查像素是否为黑色将文本分离出来，该处理过程又被称为是阀值化	通过pillow可以很容易的处理该过程
+			import pytesseract
+			img=get_captcha_img(html.content)
+			img.save('captcha_original.png')
+			gray=img.convert('L')							这一步是把图像转换成为灰度图
+			gray=gray.save('captcha_gray.png')
+			bw=gray.point(lambda x:0 if x<1 else 255,'1')
+			bw.save('captcha_thresholded.png')
+			pytesseract.image_to_string(img)				这样之后应该就能了
+
+
+
+
+
+
+pip卸载包/模块
+	pip uninstall pytesseract
+	
+	
+	
+
+
+
+pytesseract在OCR安装好之后还是在导入的时候报错
+	原因：
+		因为 pytesseract 0.3.7 不在支持 python2 和 python3.5，所以需要下载旧版本 0.3.6
+
+
+
+
+
+
+
+
+
+
+语言包：
+		https://blog.csdn.net/LZQ_LZQ_/article/details/105627635
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
